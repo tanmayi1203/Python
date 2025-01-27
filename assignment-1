@@ -1,0 +1,89 @@
+employees=[]
+
+def menu():
+    print("Employee Management System")
+    print('1. Add employee')
+    print('2. View all employees')
+    print('3. Search employee by name or city')
+    print('4. Edit employee')
+    print('5. Delete employee')
+    print('6. Exit')
+
+def add_employee():
+    eid=int(input("Enter the eid: "))
+    name=input("Enter the name of the employee: ")
+    salary=float(input("Enter the salary of the employee: "))
+    city=input("Enter the city of the employee: ")
+    employees.append({'eid':eid,'name':name,'salary':salary,'city':city})
+    print('Employee added successfully')
+
+def view_all_employees():
+    for emp in employees:
+        print(f"eid:{emp['eid']},name:{emp['name']},salary:{emp['salary']},city:{emp['city']}")
+
+def search_employee():
+    print('1. Search by name')
+    print('2. Search by city')
+    choice=int(input('Enter your choice among 1 and 2 : '))
+    if choice==1:
+        emp_name=input('Enter the name to search : ')
+        found=False
+        for emp in employees:
+            if emp_name==emp['name']:
+                print(f"eid:{emp['eid']},name:{emp['name']},salary:{emp['salary']},city:{emp['city']}")
+                found=True
+        if found==False:
+            print('No employee with that name.')
+    elif choice==2:
+        emp_city=input('Enter the city to search : ')
+        found=False
+        for emp in employees:
+            if emp_city==emp['city']:
+                print(f"eid:{emp['eid']},name:{emp['name']},salary:{emp['salary']},city:{emp['city']}")
+                found=True
+        if found==False:
+            print('No employee in that city.')
+    else:
+        print('Invalid choice..Choose either 1 or 2.')
+
+def edit_employee():
+    id=int(input("Enter eid of the employee who details need to be updated : "))
+    for emp in employees:
+        if emp['eid']==id:
+            emp['name']=input("Enter the new name if it needs to be updated : ") or emp['name']
+            emp['salary']=input("Enter the new salary if it needs to be updated : ") or emp['salary']
+            emp['city']=input("Enter the new city if it needs to be updated : ") or emp['city']
+            print('Details updated.')
+            return
+    print('Employee not found.')
+
+def delete_employee():
+    id=int(input('Enter the eid of the employee who needs to be deleted : '))
+    for emp in employees:
+        if emp['eid']==id:
+            employees.remove(emp)
+            print('Employee with eid=%d has been deleted'%(id))
+            return
+    print('Employee not found.')
+
+def main():
+    while True:
+        menu()
+        choice = int(input("Enter your choice: "))
+        if choice==1:
+            add_employee()
+        elif choice==2:
+            view_all_employees()
+        elif choice==3:
+            search_employee()
+        elif choice==4:
+            edit_employee()
+        elif choice==5:
+            delete_employee()
+        elif choice==6:
+            break
+        else:
+            print("Invalid choice..Choose between 1 and 6.")
+
+if __name__ == "__main__":
+    main()
